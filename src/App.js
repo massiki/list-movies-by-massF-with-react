@@ -4,6 +4,7 @@ import { getMoviewList } from './api.js'
 
 function App() {
   const [moviesList, setMoviesList] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     getMoviewList().then((result) => {
@@ -38,6 +39,23 @@ function App() {
     })
   }
 
+  const searchMovie = (query) => {
+    setSearchQuery(query);
+    if (!query) {
+      getMoviewList().then((result) => {
+        setMoviesList(result);
+      });
+      return;
+    }
+
+    getMoviewList().then((result) => {
+      const filtered = result.filter(
+        (movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setMoviesList(filtered);
+    });
+  }
+
   return (
     <>
       <header>
@@ -45,7 +63,7 @@ function App() {
         <p>Explore popular movies from around the world</p>
       </header>
       <div className="search-box">
-        <input type="text" placeholder="Search movie..." autoFocus />
+        <input onChange={(e) => searchMovie(e.target.value)} type="text" placeholder="Search movie..." autoFocus />
       </div>
       <section className="movie-container">
         <AllMoviesList />
