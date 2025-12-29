@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { getMoviewList } from './api.js'
+import Cart from './components/Card.js';
 
 function App() {
   const [moviesList, setMoviesList] = useState([])
@@ -12,29 +13,17 @@ function App() {
     })
   }, [])
 
-  const formatDate = (dateString) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-EN', options);
-  };
-
   const AllMoviesList = () => {
-    return moviesList.map((data, index) => {
+    return moviesList.map((movie, index) => {
       return (
-        <div key={index} className="movie-card">
-          <img
-            src={`${process.env.REACT_APP_PATH_URL}${data.poster_path}`}
-            alt={data.title}
-          />
-          <div className="movie-content">
-            <h3>{data.title}</h3>
-            <div className="movie-info">
-              <span>{formatDate(data.release_date)}</span>
-              <span>⭐ {data.vote_average}</span>
-            </div>
-          </div>
-        </div>
+        <Cart
+          id={index}
+          data={movie}
+          title={movie.title}
+          poster_path={movie.poster_path}
+          release_date={movie.release_date}
+          vote_average={movie.vote_average}
+        />
       )
     })
   }
