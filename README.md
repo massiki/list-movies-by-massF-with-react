@@ -5,9 +5,8 @@ Jika anda mengcloning project ini, berikut adalah file yang harus anda siapkan
 buatlah file dengan nama 
 ### `.env.local`
 
-ini bisa di copy di tampilannya
+berikut adalah isi file dari .env.local
 
-### `.env.local`
 ```env
 REACT_APP_BASE_URL=
 REACT_APP_PATH_URL=
